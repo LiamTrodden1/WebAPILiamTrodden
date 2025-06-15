@@ -1,0 +1,12 @@
+{
+  "source": {
+    "includePattern": ".+\\.js(doc|x)?$", 
+    "include": ["controllers", "helpers", "models", "musicshop/src/App.js", "musicshop/src/components", "permissions", "routes", "strategies", "index.js"], 
+    "exclude": ["node_modules"]
+  },
+  "recurseDepth": 10,
+  "opts": {
+    "destination": "./docs/jsdocs", 
+    "recurse": true 
+  }
+}

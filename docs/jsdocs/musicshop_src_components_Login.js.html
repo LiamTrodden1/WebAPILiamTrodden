@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: musicshop/src/components/Login.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: musicshop/src/components/Login.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * A module for the login page to get the users jwt token for authorisation and credentials for a succesful log in 
+ * @module musicShop/src/components/Login
+ * @author Liam Trodden
+ * @see ../App.js
+ */
+
+import React, { useState, useEffect } from 'react';
+// changed useNaviagte to useHistory
+import { useHistory } from 'react-router-dom';
+
+//path for where to sublit get request
+const authBase = 'https://anitamodem-vivasincere-3001.codio-box.uk/api/v1/login'
+
+/**
+ * function to get the users username and password for login and  to generate a jwt token on successful login
+ * @returns {JSX.element} - an an entry each for username and password and a button to submit
+ * @exports Login
+ */
+function Login(){
+  //create variables
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const history = useHistory();
+
+  /**
+   * An async function that executes upon the page opening to clear
+   * any existing jwt token incase the user is swapping account
+   * @function
+   * @name useEffect
+   * @returns {void}
+   */
+  // when page loads do this
+  useEffect(() => {
+    // clear jwt token incase of account switching
+    localStorage.removeItem('jwtToken');
+  }, []);
+
+  /**
+   * A function called by the button to compare the username and password in the inputs.
+   * If the username or password is empty alert that the field can't be empty.
+   * Send the GET request containing the username and password for submission in the basic authentication.
+   * If the response is valid, get the jwt token and store in the variable token which is then locally stored,
+   * alert the login was successful and navigate to dashboard.
+   * Else, alert the details were incorrect and return 
+   * @function
+   * @name submit
+   * @returns {void}
+   */
+
+  //submit button to login
+  const submit = async () => {
+
+    //check username or password aren't empty
+    if (!username || !password) {
+      alert('Please enter both username and password.');
+    }
+
+    // send login details in get 
+    const loginDetails = btoa(`${username}:${password}`);
+    const response = await fetch(authBase, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Basic ${loginDetails}`,
+      },
+    });
+
+    //if details correct then store jwt token in local storage and move to products page
+    if (response.ok){
+      const data = await response.json();
+      const token = data.token;
+      localStorage.setItem('jwtToken', token);
+      alert('Successfully logged In');
+      history.push('/dashboard');
+    }
+    // failed login
+    else{
+      alert('Incorrect Details');
+      return;
+    }
+  }
+
+  return (
+    &lt;div>
+      &lt;h2>Login&lt;/h2>
+      {/*username textbox*/}
+      &lt;input 
+        type="text"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        placeholder="Username"
+      />
+      {/*password textbox*/}
+      &lt;input 
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        placeholder="Password"
+      />
+      {/*submit button*/} 
+      &lt;button onClick={submit}>Login&lt;/button>
+    &lt;/div>
+  );
+}
+
+/** exports  */
+export default Login;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-controller_products.html">controller/products</a></li><li><a href="module-controllers_auth.html">controllers/auth</a></li><li><a href="module-controllers_jwt.html">controllers/jwt</a></li><li><a href="module-controllers_validation.html">controllers/validation</a></li><li><a href="module-Dashboard.html">Dashboard</a></li><li><a href="module-helpers_database.html">helpers/database</a></li><li><a href="module-Login.html">Login</a></li><li><a href="module-models_orders.html">models/orders</a></li><li><a href="module-models_payments.html">models/payments</a></li><li><a href="module-models_products.html">models/products</a></li><li><a href="module-models_users.html">models/users</a></li><li><a href="module-musicShop_src_app.html">musicShop/src/app</a></li><li><a href="module-musicShop_src_components_Dashboard.html">musicShop/src/components/Dashboard</a></li><li><a href="module-musicShop_src_components_Login.html">musicShop/src/components/Login</a></li><li><a href="module-musicShop_src_components_OrdersPage.html">musicShop/src/components/OrdersPage</a></li><li><a href="module-musicShop_src_components_PaymentsPage.html">musicShop/src/components/PaymentsPage</a></li><li><a href="module-musicShop_src_components_ProductList.html">musicShop/src/components/ProductList</a></li><li><a href="module-musicShop_src_components_UserPage.html">musicShop/src/components/UserPage</a></li><li><a href="module-permissions_orders.html">permissions/orders</a></li><li><a href="module-permissions_payments.html">permissions/payments</a></li><li><a href="module-permissions_products.html">permissions/products</a></li><li><a href="module-permissions_users.html">permissions/users</a></li><li><a href="module-routes_orders.html">routes/orders</a></li><li><a href="module-routes_payments.html">routes/payments</a></li><li><a href="module-routes_products.html">routes/products</a></li><li><a href="module-routes_users.html">routes/users</a></li><li><a href="module-strategies_basic.html">strategies/basic</a></li><li><a href="module-strategies_jwt.html">strategies/jwt</a></li><li><a href="routes_login.module_js.html">js</a></li></ul><h3>Global</h3><ul><li><a href="global.html#port">port</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Tue Apr 01 2025 21:28:20 GMT+0000 (GMT)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

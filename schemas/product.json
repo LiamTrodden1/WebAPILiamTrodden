@@ -1,0 +1,140 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "product": {
+      "title": "Product",
+      "description": "Create",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Name of the album",
+          "type": "string"
+        },
+        "trackLength": {
+          "description": "Length of the album",
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "price": {
+          "description": "Price of the album",
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "formats": {
+          "description": "Formats the album was released in",
+          "type": "string"
+        },
+        "colour": {
+          "description": "Colour of the vinyl",
+          "type": "string"
+        }
+      },
+      "required": ["name", "trackLength", "price", "formats"],
+      "additionalProperties": false
+    },
+
+    "productUpdate": {
+      "title": "ProductUpdate",
+      "description": "update",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Name of the album",
+          "type": "string"
+        },
+        "trackLength": {
+          "description": "Length of the album",
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "price": {
+          "description": "Price of the album",
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "formats": {
+          "description": "Formats the album was released in",
+          "type": "string"
+        },
+        "colour": {
+          "description": "Colour of the vinyl",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "productView": {
+      "title": "ProductView",
+      "description": "getbyid",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Name of the album",
+          "type": "string"
+        },
+        "trackLength": {
+          "description": "Length of the album",
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "price": {
+          "description": "Price of the album",
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "formats": {
+          "description": "Formats the album was released in",
+          "type": "string"
+        },
+        "colour": {
+          "description": "Colour of the vinyl",
+          "type": "string"
+        }
+      }
+    },
+    
+    "productList": {
+      "title": "Product List",
+      "description": "List of all results",
+      "type": "array",
+      "items": {"$ref": "#/definitions/productView"}
+    },
+
+    "productCreated": {
+      "title": "ProductCreated",
+      "description": "successfully created",
+      "type": "object",
+      "properties": {
+        "ID": {
+          "description": "The ID thats been created",
+          "type": "integer"
+        }
+      }
+    },    
+
+    "productUpdated": {
+      "title": "ProductUpdated",
+      "description": "successfully updated",
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "Confirm Updated",
+          "type": "string"
+        }
+      }
+    },
+
+    "productDeleted": {
+      "title": "ProductDeleted",
+      "description": "successfully deleted",
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "Confirm Deletion",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

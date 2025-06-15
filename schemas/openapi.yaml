@@ -1,0 +1,356 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: API for music shop
+  description: A shop for purchasing physical music
+  contact:
+    name: Liam
+    email: troddenl@coventry.ac.uk
+  license:
+    name: Apache 2.0
+    url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
+servers:
+  - url: 'https://anitamodem-vivasincere-3001.codio-box.uk/api/v1'
+    description: The main server
+
+tags:
+  - name: products
+    description: Endpoint for all product CRUD operations
+  - name: users
+    description: Endpoint for all user CRUD operations
+  - name: payments
+    description: Endpoint for all payment CRUD operations
+  - name: orders
+    description: Endpoint for all order CRUD operations
+
+paths:
+  /users:
+    get:
+      tags:
+        - users
+      description: 
+        Successfully got all users
+      responses:
+        '200':
+          description:
+            Successfully found all user 
+        '403':
+          description:
+            User doesn't have the permission level for the operation
+        '404':
+          description:
+            Couldn't find any users
+    post:
+      tags:
+        - users
+      description:
+        Create a new user
+      responses:
+        '201':
+          description:
+            Successfully created a user
+        '400':
+          description:
+            Couldn't create user
+
+  /users/{id}:
+    get:
+      tags:
+        - users
+      description:
+        Get a user by id
+      responses:
+        '200':
+          description:
+            Successfully found the user
+        '400':
+          description:
+            Invalid userID
+        '403':
+          description:
+            User doesn't have permisson for the operation
+        '404':
+          description:
+            User not found 
+    put:
+      tags:
+        - users
+      description:
+        Update a user by id
+      responses:
+        '200':
+          description:
+            User Successfully updated
+        '400':
+          description:
+            Invalid userID or empty body
+        '403':
+          description:
+            User doesn't have permissions for the operation
+        '404':
+          description:
+            User not found to update
+    delete:
+      tags:
+        - users
+      description:
+        Delete a user by id
+      responses:
+        '200':
+          description:
+            User successfully deleted
+        '400':
+          description:
+            Invalid userID
+        '403':
+          description:
+            User doesn't have permissions for the operation
+        '404':
+          description:
+            User not found to delete
+        
+  
+
+  /products:
+    get:
+      tags:
+        - products
+      description: 
+        Successfully got all products
+      responses:
+        '200':
+          description:
+            Successfully found all products 
+        '403':
+          description:
+            User doesn't have the permission level for the operation
+        '404':
+          description:
+            Couldn't find any products
+    post:
+      tags:
+        - products
+      description:
+        Create a new product
+      responses:
+        '201':
+          description:
+            Successfully created a product
+        '400':
+          description:
+            Couldn't create product
+  /products/{id}:
+    get:
+      tags:
+        - products
+      description:
+        Get a product by id
+      responses:
+        '200':
+          description:
+            Successfully found the product
+        '400':
+          description:
+            Invalid productID
+        '403':
+          description:
+            User doesn't have permisson for the operation
+        '404':
+          description:
+            Product not found 
+    put:
+      tags:
+        - products
+      description:
+        Update a product by id
+      responses:
+        '200':
+          description:
+            Product Successfully updated
+        '400':
+          description:
+            Invalid productID or empty body
+        '403':
+          description:
+            User doesn't have permissions for the operation
+        '404':
+          description:
+            Product not found to update
+    delete:
+      tags:
+        - products
+      description:
+        Delete a product by id
+      responses:
+        '200':
+          description:
+            Product successfully deleted
+        '400':
+          description:
+            Invalid productID
+        '403':
+          description:
+            User doesn't have permissions for the operation
+        '404':
+          description:
+            Product not found to delete
+
+
+
+  /payments:
+    get:
+      tags:
+        - payments
+      description: 
+        Get all payments
+      responses:
+        '200':
+          description:
+            Successfully found all payments 
+        '403':
+          description:
+            User doesn't have the permission level for the operation
+        '404':
+          description:
+            Couldn't find any payments
+    post:
+      tags:
+        - payments
+      description:
+        Create a new payment
+      responses:
+        '201':
+          description:
+            Created a product
+        '400':
+          description:
+            Couldn't create product
+  /payments/{id}:
+    get:
+      tags:
+        - payments
+      description:
+        Get a payment by id
+      responses:
+        '200':
+          description:
+            Successfully found the payment
+        '400':
+          description:
+            Invalid paymentID
+        '403':
+          description:
+            User doesn't have permisson for the operation
+        '404':
+          description:
+            Payment not found 
+    put:
+      tags:
+        - payments
+      description:
+        Update a payment by id
+      responses:
+        '200':
+          description:
+            Payment Successfully updated
+        '400':
+          description:
+            Invalid paymentID or empty body
+        '403':
+          description:
+            User doesn't have permissions for the operation
+        '404':
+          description:
+            Payment not found to update
+
+
+
+  /orders:
+    get:
+      tags:
+        - orders
+      description: 
+        Get all orders
+      responses:
+        '200':
+          description:
+            Successfully found all orders 
+        '403':
+          description:
+            User doesn't have the permission level for the operation
+        '404':
+          description:
+            Couldn't find any orders
+    post:
+      tags:
+        - orders
+      description:
+        Create a new order
+      responses:
+        '201':
+          description:
+            Created an order
+        '400':
+          description:
+            Couldn't create order
+  /orders/{id}:
+    get:
+      tags:
+        - orders
+      description:
+        Get an order by id
+      responses:
+        '200':
+          description:
+            Successfully found the order
+        '400':
+          description:
+            Invalid orderID
+        '403':
+          description:
+            User doesn't have permisson for the operation
+        '404':
+          description:
+            Order not found 
+    put:
+      tags:
+        - orders
+      description:
+        Update an order by id
+      responses:
+        '200':
+          description:
+            Order Successfully updated
+        '400':
+          description:
+            Invalid orderID or empty body
+        '403':
+          description:
+            User doesn't have permissions for the operation
+        '404':
+          description:
+            Order not found to update
+
+
+
+  /login:
+    get:
+      tags:
+        - login
+      description:
+        get jwt token for authorisation
+      responses:
+        '200':
+          description: 
+            Successfully generated token
+        '404':
+          description:
+            User not found for token generation
+    
+
+
+
+
+      
+          
+  

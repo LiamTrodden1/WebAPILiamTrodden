@@ -1,0 +1,26 @@
+{ 
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "User",
+  "description": "A User Account",
+  "type": "object",
+
+  "properties": {
+    "username": {
+      "description": "Name of the User",
+      "type": "string"
+    },
+    "email": {
+      "description": "Users Email Address",
+      "type": "string"
+    },
+    "password": {
+      "description": "Password of User",
+      "type": "string"
+    },
+    "role": {
+      "description": "Permissions of account",
+      "type": "string"
+    }
+  },
+  "required": ["username", "email", "password"]
+}

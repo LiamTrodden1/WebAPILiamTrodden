@@ -1,0 +1,32 @@
+{ 
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Product",
+  "description": "A product in the catalog",
+  "type": "object",
+
+  "properties": {
+    "name": {
+      "description": "Name of the album",
+      "type": "string"
+    },
+    "trackLength": {
+      "description": "Length of the album",
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "price": {
+      "description": "Price of the album",
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "formats": {
+      "description": "Formats the album was released in",
+      "type": "string"
+    },
+    "colour": {
+      "description": "Colour of the vinyl",
+      "type": "string"
+    }
+  },
+  "required": ["name", "trackLength", "price", "formats"]
+}

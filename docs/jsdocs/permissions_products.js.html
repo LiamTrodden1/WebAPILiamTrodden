@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: permissions/products.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: permissions/products.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * A module to define the permisions of the user and admin accounts
+ * 
+ * This module uses the role based access control system imported from the role-acl module
+ * @module permissions/products
+ * @author Liam Trodden
+ * @see routes/products
+ */
+
+//import role-acl with the instance ac
+const AccessControl = require('role-acl');
+const ac = new AccessControl();
+
+/** 
+ * Grant the user permissions to read all products
+ * @function
+ * @name grantUserReadAll
+ */
+//user get all products
+ac.grant('user')
+  .execute('read')
+  .on('products');
+  
+/** 
+ * Grant the user permissions to read a product
+ * @function
+ * @name grantUserRead
+ */
+//user read a product
+ac.grant('user')
+  .execute('read')
+  .on('product');
+
+/**
+ * Grant admins the ability to get all products
+ * @function
+ * @name grantAdminRead
+ */
+//admin get all users
+ac.grant('admin')
+  .execute('read')
+  .on('products');
+
+/**
+ * Grant admins the ability to get a product
+ * @function
+ * @name grantAdminRead
+ */
+//admin read a product
+ac.grant('admin')
+  .execute('read')
+  .on('product');
+
+/**
+ * Grant admins the ability to create a product
+ * @function
+ * @name grantAdminCreate
+ */
+//admin create a product
+ac.grant('admin')
+  .execute('create')
+  .on('products')
+
+/**
+ * grant admins the ability to update a product 
+ * @function
+ * @name grantAdminUpdate
+ */
+//admin update a user
+ac.grant('admin')
+  .execute('update')
+  .on('product');
+
+/**
+ * Grant admins the ability to delete a roduct
+ * @function
+ * @name grantAdminDelete
+ */
+//admin delete a product
+ac.grant('admin')
+  .execute('delete')
+  .on('product');
+
+/**
+ * Checks requesters permissions to read all products
+ * 
+ * @function
+ * @name readAll
+ * @param {Object} requester - The object containing the role and productID.
+ * @returns {boolean} - Returns true if account has permission to read all, else false.
+ */
+//check requesters permissions for reading all products
+exports.readAll = (requester) =>
+  ac.can(requester.role)
+    .execute('read')
+    .sync()
+    .on('products');
+
+/**
+ * check requesters permissions for reading a product
+ * @function
+ * @name read
+ * @param {Object} requester - The object containing the role and productID.
+ * @returns {boolean} - Returns true if account has permission to read, else false.
+ */
+//check requesters permissions for reading a product
+exports.read = (requester, data) =>
+  ac.can(requester.role)
+  .execute('read')
+  .sync()
+  .on('product');
+
+/**
+ * check requesters permissions for creating a product
+ * @function
+ * @name create
+ * @param {Object} requester - The object containing the role and productID.
+ * @returns {boolean} - Returns true if account has permission to read, else false.
+ */
+//check requesters permissions for creating a product
+exports.create = (requester) =>
+  ac.can(requester.role)
+  .execute('create')
+  .sync()
+  .on('products');
+
+
+/**
+ * check requesters permissions for updating a product
+ * @function
+ * @name update
+ * @param {Object} requester - The object containing the role and productID.
+ * @param {Object} data - contains productID for checking permissions
+ * @returns {boolean} - Returns true if account has permission to update, else false.
+ */
+//check requesters permissions for updating a user
+exports.update = (requester, data) =>
+  ac.can(requester.role)
+  .context({requester:requester.userID,owner:data.userID})
+  .execute('update')
+  .sync()
+  .on('product');
+
+/**
+ * check requesters permissions for deleting a product
+ * @function
+ * @name delete
+ * @param {Object} requester - The object containing the role and productID.
+ * @param {Object} data - contains productID for checking permissions
+ * @returns {boolean} - Returns true if account has permission to update, else false.
+ */
+//check permissions for delting a user
+exports.delete = (requester, data) =>
+  ac.can(requester.role)
+    .context({requester:requester.userID, owner:data.userID})
+    .execute('delete')
+    .sync()
+    .on('product');
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-controller_products.html">controller/products</a></li><li><a href="module-controllers_auth.html">controllers/auth</a></li><li><a href="module-controllers_jwt.html">controllers/jwt</a></li><li><a href="module-controllers_validation.html">controllers/validation</a></li><li><a href="module-Dashboard.html">Dashboard</a></li><li><a href="module-helpers_database.html">helpers/database</a></li><li><a href="module-Login.html">Login</a></li><li><a href="module-models_orders.html">models/orders</a></li><li><a href="module-models_payments.html">models/payments</a></li><li><a href="module-models_products.html">models/products</a></li><li><a href="module-models_users.html">models/users</a></li><li><a href="module-musicShop_src_app.html">musicShop/src/app</a></li><li><a href="module-musicShop_src_components_Dashboard.html">musicShop/src/components/Dashboard</a></li><li><a href="module-musicShop_src_components_Login.html">musicShop/src/components/Login</a></li><li><a href="module-musicShop_src_components_OrdersPage.html">musicShop/src/components/OrdersPage</a></li><li><a href="module-musicShop_src_components_PaymentsPage.html">musicShop/src/components/PaymentsPage</a></li><li><a href="module-musicShop_src_components_ProductList.html">musicShop/src/components/ProductList</a></li><li><a href="module-musicShop_src_components_UserPage.html">musicShop/src/components/UserPage</a></li><li><a href="module-permissions_orders.html">permissions/orders</a></li><li><a href="module-permissions_payments.html">permissions/payments</a></li><li><a href="module-permissions_products.html">permissions/products</a></li><li><a href="module-permissions_users.html">permissions/users</a></li><li><a href="module-routes_orders.html">routes/orders</a></li><li><a href="module-routes_payments.html">routes/payments</a></li><li><a href="module-routes_products.html">routes/products</a></li><li><a href="module-routes_users.html">routes/users</a></li><li><a href="module-strategies_basic.html">strategies/basic</a></li><li><a href="module-strategies_jwt.html">strategies/jwt</a></li><li><a href="routes_login.module_js.html">js</a></li></ul><h3>Global</h3><ul><li><a href="global.html#port">port</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Tue Apr 01 2025 21:28:20 GMT+0000 (GMT)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

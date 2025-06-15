@@ -1,0 +1,125 @@
+{ 
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "user": {
+      "title": "user",
+      "description": "Create User Account",
+      "type": "object",
+
+      "properties": {
+        "username": {
+          "description": "Name of the User",
+          "type": "string"
+        },
+        "email": {
+          "description": "Users Email Address",
+          "type": "string"
+        },
+        "password": {
+          "description": "Password of User",
+          "type": "string"
+        },
+        "role": {
+          "description": "Permissions of account",
+          "type": "string"
+        }
+      },
+      "required": ["username", "email", "password"],
+      "additionalProperties": false
+    },
+
+    "userUpdate": {
+      "title": "UserUpdate",
+      "description": "Update User Account",
+      "type": "object",
+
+      "properties": {
+        "username": {
+          "description": "Name of the User",
+          "type": "string"
+        },
+        "email": {
+          "description": "Users Email Address",
+          "type": "string"
+        },
+        "password": {
+          "description": "Password of User",
+          "type": "string"
+        },
+        "role": {
+          "description": "Permissions of account",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "userView": {
+      "title": "userView",
+      "description": "getbyid",
+      "type": "object",
+
+      "properties": {
+        "username": {
+          "description": "Name of the User",
+          "type": "string"
+        },
+        "email": {
+          "description": "Users Email Address",
+          "type": "string"
+        },
+        "password": {
+          "description": "Password of User",
+          "type": "string"
+        },
+        "role": {
+          "description": "Permissions of account",
+          "type": "string"
+        }
+      }
+    },
+
+    "userList": {
+      "title": "User List",
+      "description": "List of all results",
+      "type": "array",
+      "items": {"$ref": "#/definitions/userView"}
+    },
+
+    "userCreated": {
+      "title": "UserCreated",
+      "description": "successfully created",
+      "type": "object",
+      "properties": {
+        "ID": {
+          "description": "The ID thats been created",
+          "type": "integer"
+        }
+      }
+    },
+
+    "userUpdated": {
+      "title": "UserUpdated",
+      "description": "successfully updated",
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "Confirm Updated",
+          "type": "string"
+        }
+      }
+    },
+
+    "userDeleted": {
+      "title": "UserDeleted",
+      "description": "successfully deleted",
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "Confirm Deletion",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

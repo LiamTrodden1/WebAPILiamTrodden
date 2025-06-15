@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: musicshop/src/components/ProductList.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: musicshop/src/components/ProductList.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * A module for the web page to execute CRUD operations on the products table
+ * @module musicShop/src/components/ProductList
+ * @author Liam Trodden
+ * @see ../App.js
+ * @see ../../../dbCode
+ */
+
+import React, {useEffect, useState} from 'react';
+
+//path for products 
+const requestBase = 'https://anitamodem-vivasincere-3001.codio-box.uk/api/v1/products'
+const requestIdBase = 'https://anitamodem-vivasincere-3001.codio-box.uk/api/v1/products/'
+//get stored jwt token for requests
+const authHeader = localStorage.getItem('authHeader') || '';
+
+/**
+ * function to perform CRUD operations on the products 
+ * @returns {JSX.element} - The UI with inputs for the body of requests and ID's and a button for each CRUD operation to perform the action 
+ */
+
+const ProductList = () => {
+  //getall
+  const [products, setProducts] = useState([]);
+  //getbyid
+  const [getProduct, setGetProduct] = useState('');
+  const [getIdProduct, setGetIdProduct] = useState(null);
+  //post
+  const [createName, setCreateName] = useState('');
+  const [createTrackLength, setCreateTrackLength] = useState();
+  const [createPrice, setCreatePrice] = useState();
+  const [createFormats, setCreateFormats] = useState('');  
+  const [createColour, setCreateColour] = useState('');
+  //put
+  const [updateName, setUpdateName] = useState('');
+  const [updateTrackLength, setUpdateTrackLength] = useState();
+  const [updatePrice, setUpdatePrice] = useState();
+  const [updateFormats, setUpdateFormats] = useState('');  
+  const [updateColour, setUpdateColour] = useState('');
+  const [updateId, setUpdateId] = useState();
+  //delete
+  const [delProduct, setDelProduct] = useState('')
+  const [deleteIdProduct, setDeleteIdProduct] = useState(null);
+
+  //jwtToken
+  const token = localStorage.getItem('jwtToken');
+  
+  /** 
+   * When the web page is opened, check if token exists to perform operations and alert if it doesn't exist.
+   * 
+   * if token exists then call the getAllProduct function
+   * @function
+   * @name useEffect
+   * @returns {void}
+   */
+
+  //when page loads do this
+  useEffect(() => {
+    //check for token
+    if (!token) {
+      alert('Error during logging in please try again');
+      return;
+    }
+    //get all products
+    getAllProduct();  
+  }, []);
+
+  /**
+   * connect button to get by ID to the function to perform the get by ID
+   * 
+   * If input is empty then alert that inputs empty
+   * else, call getByIdProducts and clear input
+   * @function
+   * @name submitGetById
+   * @returns {void}
+   */
+
+  //find button command
+  const submitGetById = async () => {
+    //if product can't be found clear previous and alert
+    if (!getProduct) {
+      setGetIdProduct(null);
+      alert('Please enter a valid product ID');
+      return;
+    }
+
+    //call function and clear input
+    getByIdProduct();
+    setGetIdProduct('');
+  }
+
+  /**
+   * connects button for creating a product to the function that performs the operation
+   * 
+   * If the required inputs are empty, alert they must be filled and clear inputs
+   * else, call the createProducts function
+   * @function
+   * @name submitCreate
+   * @returns {void}
+   */
+
+  //createProduct button command
+  const submitCreate = async () => {
+    //check there isn't an empty field thats mandatory, alert and clear if true
+    if (!createName || !createTrackLength || !createPrice || !createFormats) {
+      alert(' Make sure all required fileds are filled ');
+      setCreateName('');
+      setCreateTrackLength('');
+      setCreatePrice('');
+      setCreateFormats('');
+      setCreateColour('');
+      return;
+    }
+
+    //call function
+    createProduct();
+  }
+
+  /**
+   * Connects the update button the the function that performs the Update
+   * 
+   * if the productID isnt input alert the ID is required and clear inputs
+   * else, call the updateProducts function
+   * @function
+   * @name submitUpdate
+   * @returns {void}
+   */
+
+  //updateProduct button command
+  const submitUpdate = async () => {
+    //check there isn't an empty field thats mandatory, alert and clear if true
+    if (!updateId) {
+      alert('Must provide the product ID');
+      setUpdateName('');
+      setUpdateTrackLength('');
+      setUpdatePrice('');
+      setUpdateFormats('');
+      setUpdateColour('');
+      setUpdateId('');
+      return;
+    }
+    // call function
+    updateProduct();
+  }
+
+  /**
+   * function to connect the delete button to the function that deletes the Product
+   * 
+   * id the input is empty alert the productID must be present and clear input
+   * else, call the deleteProducts function
+   * @function
+   * @name submitDelete
+   * @returns {void}
+   */
+
+  const submitDelete = async () => {
+    //if product can't be found clear previous
+    if (!delProduct) {
+      setDelProduct('');
+      alert('Please enter a valid product ID');
+      return;
+    }
+    //call function
+    deleteProduct();
+  }
+
+  /**
+   * function to make the request to GET all products
+   * 
+   * try and make the request using the jwt token as as the Authorization in json format
+   * if response not ok, alert users not found and clear input
+   * else, show the data retrieved in the response and clear input
+   * catch an error getting products
+   * @function
+   * @name getAllProduct
+   * @returns {void}
+   */
+
+  // get all products
+  const getAllProduct = async () => {
+    try {
+      //make response
+      const response = await fetch(requestBase, {
+        headers: {
+          'Authorization' : `Bearer ${token}`,
+          'Content-Type' : `application/json`
+        }
+      });
+      
+      //if response failed alert
+      if (!response.ok) {
+        alert('Products Not Found')
+        return;
+      }
+      
+      //succesful response show data
+      const data = await response.json();
+      setProducts(data);
+    }
+    catch (error) {
+      console.error('Error getting products', error);
+    }
+  };
+
+  /**
+   * function to make the request to GET a product
+   * 
+   * try and make the request using the jwt token as as the Authorization in json format
+   * if response not ok, alert product not found and clear input
+   * else, show the data retrieved in the response and clear input
+   * catch an error getting product
+   * @function
+   * @name getByIdProduct
+   * @returns {void}
+   */
+
+  // get a specific product
+  const getByIdProduct = async () => {
+    try {
+      //make response
+      const response = await fetch(`${requestIdBase}${getProduct}`, {
+        headers: {
+          'Authorization' : `Bearer ${token}`,
+          'Content-Type' : `application/json`
+        }
+      });
+
+      //if response failed alert and clear input
+      if (!response.ok) {
+        alert('Product Not Found')
+        setGetProduct('');
+        return;
+      }
+      
+      //if success show product and clear input
+      const data = await response.json();
+      setGetIdProduct(data);
+      setGetProduct('');
+    }
+    catch (error) {
+      console.error('Error getting product', error);
+    }
+  }
+
+  /**
+   * async function to make the POST request to create a Product
+   * 
+   * try and fill body with the input variables then stringify the body,
+   * then create the response using the jwt token and a json format
+   * if response failed alert and clear inputs
+   * else alert successfully created the product and clear inputs and refresh all the products
+   * catch error creating the product
+   * @function
+   * @name createProduct
+   * @returns {void}
+   */
+
+  //createProduct a product
+  const createProduct = async () => {
+    try{
+      //fill the body with data and stringify for valid format
+      const body = {
+        name: createName, 
+        trackLength: createTrackLength,
+        price: createPrice,
+        formats: createFormats,
+        colour: createColour
+      };
+      const newBody = JSON.stringify(body)
+
+      //make response
+      const response = await fetch(requestBase, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json', 
+        },
+        body : newBody,
+      });
+
+      //if failed alert and clear inputs
+      if (!response.ok) {
+        alert("Product Creation Failed")
+        setCreateName('');
+        setCreateTrackLength('');
+        setCreatePrice('');
+        setCreateFormats('');
+        setCreateColour('');
+        return;
+      }
+
+      //if success, alert, clear inputs, and updateProduct get all products
+      alert("Product Succesfully Created")
+      setCreateName('');
+      setCreateTrackLength('');
+      setCreatePrice('');
+      setCreateFormats('');
+      setCreateColour('');
+      getAllProduct();
+    }
+    catch (error) {
+      console.error('Error creating product:', error);
+    }
+  }
+
+  /**
+   * async function to make the PUT request to update a Product
+   * 
+   * try and fill body with the input variables then stringify the body,
+   * then create the response using the jwt token and a json format
+   * if response failed alert and clear inputs
+   * else alert successfully updated the product and clear inputs and refresh all the products
+   * catch error updating the product
+   * @function
+   * @name updateProduct
+   * @returns {void}
+   */
+
+  const updateProduct = async () => {
+    try {
+      //fill the body with data and stringify for valid format
+      let body = {
+        name: updateName, 
+        trackLength: updateTrackLength,
+        price: updatePrice,
+        formats: updateFormats,
+        colour: updateColour
+      };
+      const newBody = JSON.stringify(body);
+
+      //make response
+      const response = await fetch(`${requestIdBase}${updateId}`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json', 
+        },
+        body : newBody,
+      });
+
+      //if failed alert and clear inputs
+      if (!response.ok) {
+        alert("Updating Product Failed")
+        setUpdateName('');
+        setUpdateTrackLength('');
+        setUpdatePrice('');
+        setUpdateFormats('');
+        setUpdateColour('');
+        setUpdateId('');
+        return;
+      }
+
+      //if success, alert, clear inputs, and updateProduct get all products
+      alert("Product Succesfully Updated")
+      setUpdateName('');
+      setUpdateTrackLength('');
+      setUpdatePrice('');
+      setUpdateFormats('');
+      setUpdateColour('');
+      setUpdateId('');
+      getAllProduct();
+    }
+    catch (error) {
+      console.error('Error updating product:', error);
+    }
+  }
+
+  /**
+   * function to make the request to DELETE a product
+   * 
+   * try and make the request using the jwt token as as the Authorization in json format
+   * if response not ok, alert product not found so can the deleted and clear input
+   * else, alert the deletion as successful, clear the input and refresh all products
+   * catch an error deleting product
+   * @function
+   * @name deleteProduct
+   * @returns {void}
+   */  
+
+  const deleteProduct = async () => {
+    try {
+      //make response
+      const response = await fetch(`${requestIdBase}${delProduct}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization' : `Bearer ${token}`,
+          'Content-Type' : `application/json`
+        }
+      });
+
+      //if response failed alert and clear input
+      if (!response.ok) {
+        alert('Product cannot be deleted')
+        setDelProduct('');
+        return;
+      }
+      
+      //if success delete product and clear input
+      alert('Successfully Deleted')
+      setDelProduct('');
+      getAllProduct();
+    }
+    catch (error) {
+      console.error('Error deleting product:', error);
+    }
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////////////////
+  return (
+    &lt;div style={{
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'flex-start',
+    }}>
+
+    
+      {/* getById */}
+      &lt;div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            padding: '20px',
+            backgroundColor: 'lightgrey'
+      }}>
+        &lt;h2> Find Product By ID &lt;/h2>
+        &lt;input 
+          type="text"
+          value={getProduct}
+          onChange={(e) => setGetProduct(e.target.value)}
+          placeholder="Search Products"
+        />
+
+        &lt;button onClick={submitGetById}>Find&lt;/button>
+
+        {getIdProduct &amp;&amp; getIdProduct.productID &amp;&amp;(
+          &lt;div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            padding: '20px'
+          }}>
+            &lt;h3>Product Details&lt;/h3>
+            &lt;p>&lt;strong>ID:&lt;/strong> {getIdProduct.productID}&lt;/p>
+            &lt;p>&lt;strong>Name:&lt;/strong> {getIdProduct.name}&lt;/p>
+            &lt;p>&lt;strong>Track Length:&lt;/strong> {getIdProduct.trackLength}&lt;/p>
+            &lt;p>&lt;strong>Price:&lt;/strong> {getIdProduct.price}&lt;/p>
+            &lt;p>&lt;strong>Formats:&lt;/strong> {getIdProduct.formats}&lt;/p>
+            &lt;p>&lt;strong>Colour:&lt;/strong> {getIdProduct.colour}&lt;/p>
+          &lt;/div>
+        )}
+      &lt;/div>
+
+
+      {/* Create */}
+      &lt;div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            padding: '20px',
+      }}>
+
+        &lt;h2> Create A Product &lt;/h2>
+        &lt;input 
+          type="text"
+          value={createName}
+          onChange={(e) => setCreateName(e.target.value)}
+          placeholder="Enter Name"
+        />
+        &lt;input 
+          type="number"
+          value={createTrackLength}
+          onChange={(e) => setCreateTrackLength(Number(e.target.value))}
+          placeholder="Enter Track Length"
+        />
+        &lt;input 
+          type="number"
+          value={createPrice}
+          onChange={(e) => setCreatePrice(Number(e.target.value))}
+          placeholder="Enter Price"
+        />
+        &lt;input 
+          type="text"
+          value={createFormats}
+          onChange={(e) => setCreateFormats(e.target.value)}
+          placeholder="Enter Formats"
+        />
+        &lt;input 
+          type="text"
+          value={createColour}
+          onChange={(e) => setCreateColour(e.target.value)}
+          placeholder="Enter Colour"
+        />
+
+        &lt;button onClick={submitCreate}>Create&lt;/button>
+
+      &lt;/div>
+
+
+      {/* Update */}
+      &lt;div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            padding: '20px'
+      }}>
+
+        &lt;h2> Update A Product &lt;/h2>
+        &lt;input 
+          type="text"
+          value={updateId}
+          onChange={(e) => setUpdateId(e.target.value)}
+          placeholder="Enter Products ID"
+        />
+        &lt;input 
+          type="text"
+          value={updateName}
+          onChange={(e) => setUpdateName(e.target.value)}
+          placeholder="Enter Name"
+        />
+        &lt;input 
+          type="number"
+          value={updateTrackLength}
+          onChange={(e) => setUpdateTrackLength(Number(e.target.value))}
+          placeholder="Enter Track Length"
+        />
+        &lt;input 
+          type="number"
+          value={updatePrice}
+          onChange={(e) => setUpdatePrice(Number(e.target.value))}
+          placeholder="Enter Price"
+        />
+        &lt;input 
+          type="text"
+          value={updateFormats}
+          onChange={(e) => setUpdateFormats(e.target.value)}
+          placeholder="Enter Formats"
+        />
+        &lt;input 
+          type="text"
+          value={updateColour}
+          onChange={(e) => setUpdateColour(e.target.value)}
+          placeholder="Enter Colour"
+        />
+
+        &lt;button onClick={submitUpdate}>Update&lt;/button>
+
+      &lt;/div>
+
+
+      {/* delete */}
+      &lt;div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            padding: '20px',
+      }}>
+        &lt;h2> Delete product By ID &lt;/h2>
+        &lt;input 
+          type="text"
+          value={delProduct}
+          onChange={(e) => setDelProduct(e.target.value)}
+          placeholder="Delete Products"
+        />
+
+        &lt;button onClick={submitDelete}>Delete&lt;/button>
+
+        {/* Display Selected Product */}
+        {deleteIdProduct &amp;&amp; deleteIdProduct.productID &amp;&amp;(
+          &lt;div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            padding: '20px'
+          }}>
+            &lt;h3>Product Details&lt;/h3>
+            &lt;p>&lt;strong>ID:&lt;/strong> {deleteIdProduct.productID}&lt;/p>
+            &lt;p>&lt;strong>Name:&lt;/strong> {deleteIdProduct.name}&lt;/p>
+            &lt;p>&lt;strong>Track Length:&lt;/strong> {deleteIdProduct.trackLength}&lt;/p>
+            &lt;p>&lt;strong>Price:&lt;/strong> {deleteIdProduct.price}&lt;/p>
+            &lt;p>&lt;strong>Formats:&lt;/strong> {deleteIdProduct.formats}&lt;/p>
+            &lt;p>&lt;strong>Colour:&lt;/strong> {deleteIdProduct.colour}&lt;/p>
+          &lt;/div>
+        )}
+      &lt;/div>
+
+
+      {/* get all */}
+      &lt;div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            padding: '20px',
+            backgroundColor: 'lightgrey'
+      }}>    
+
+        &lt;h2> Retrieved Products &lt;/h2>
+        {/* No products found */}
+        {products.length === 0 ? (
+          &lt;p>No products found.&lt;/p>
+        ) : (
+          // Load all results 
+          products.map(product => (
+            &lt;div key={product.productID}>
+              {/* data fields to retrieve */}
+              &lt;h3>{product.productID}&lt;/h3>
+              &lt;p>&lt;strong>ID:&lt;/strong> {product.productID}&lt;/p>
+              &lt;p>{product.name}&lt;/p>
+              &lt;p>{product.trackLength}&lt;/p>
+              &lt;p>{product.price}&lt;/p>
+              &lt;p>{product.formats}&lt;/p>
+              &lt;p>{product.colour}&lt;/p>
+            &lt;/div>
+          ))
+        )}
+      &lt;/div>
+  &lt;/div>
+  );
+};
+
+export default ProductList;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-controller_products.html">controller/products</a></li><li><a href="module-controllers_auth.html">controllers/auth</a></li><li><a href="module-controllers_jwt.html">controllers/jwt</a></li><li><a href="module-controllers_validation.html">controllers/validation</a></li><li><a href="module-Dashboard.html">Dashboard</a></li><li><a href="module-helpers_database.html">helpers/database</a></li><li><a href="module-Login.html">Login</a></li><li><a href="module-models_orders.html">models/orders</a></li><li><a href="module-models_payments.html">models/payments</a></li><li><a href="module-models_products.html">models/products</a></li><li><a href="module-models_users.html">models/users</a></li><li><a href="module-musicShop_src_app.html">musicShop/src/app</a></li><li><a href="module-musicShop_src_components_Dashboard.html">musicShop/src/components/Dashboard</a></li><li><a href="module-musicShop_src_components_Login.html">musicShop/src/components/Login</a></li><li><a href="module-musicShop_src_components_OrdersPage.html">musicShop/src/components/OrdersPage</a></li><li><a href="module-musicShop_src_components_PaymentsPage.html">musicShop/src/components/PaymentsPage</a></li><li><a href="module-musicShop_src_components_ProductList.html">musicShop/src/components/ProductList</a></li><li><a href="module-musicShop_src_components_UserPage.html">musicShop/src/components/UserPage</a></li><li><a href="module-permissions_orders.html">permissions/orders</a></li><li><a href="module-permissions_payments.html">permissions/payments</a></li><li><a href="module-permissions_products.html">permissions/products</a></li><li><a href="module-permissions_users.html">permissions/users</a></li><li><a href="module-routes_orders.html">routes/orders</a></li><li><a href="module-routes_payments.html">routes/payments</a></li><li><a href="module-routes_products.html">routes/products</a></li><li><a href="module-routes_users.html">routes/users</a></li><li><a href="module-strategies_basic.html">strategies/basic</a></li><li><a href="module-strategies_jwt.html">strategies/jwt</a></li><li><a href="routes_login.module_js.html">js</a></li></ul><h3>Global</h3><ul><li><a href="global.html#port">port</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Tue Apr 01 2025 21:28:20 GMT+0000 (GMT)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

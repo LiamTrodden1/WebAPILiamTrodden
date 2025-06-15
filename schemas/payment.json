@@ -1,0 +1,138 @@
+{ 
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "payment": {
+      "title": "payment",
+      "description": "create payment",
+      "type": "object",
+
+      "properties": {
+        "orderID": {
+          "description": "Identifier for orders",
+          "type": "number"
+        },
+        "userID": {
+          "description": "Identifier for users",
+          "type": "number"
+        },
+        "cost": {
+          "description": "payment cost",
+          "type": "number"
+        },
+        "paymentStatus": {
+          "description": "status of payment",
+          "type": "string"
+        },
+        "paymentDate": {
+          "description": "date of payment",
+          "type": "string"
+        }
+      },
+      "required": ["orderID", "userID", "cost", "paymentStatus", "paymentDate"],
+      "additionalProperties": false
+    },
+
+    "paymentUpdate": {
+      "title": "paymentUpdate",
+      "description": "update payment",
+      "type": "object",
+
+      "properties": {
+        "orderID": {
+          "description": "Identifier for orders",
+          "type": "number"
+        },
+        "userID": {
+          "description": "Identifier for users",
+          "type": "number"
+        },
+        "cost": {
+          "description": "payment cost",
+          "type": "number"
+        },
+        "paymentStatus": {
+          "description": "status of payment",
+          "type": "string"
+        },
+        "paymentDate": {
+          "description": "date of payment",
+          "type": "string"
+        }
+      },
+      "required": ["paymentStatus"],
+      "additionalProperties": false
+    },
+
+    "paymentView": {
+      "title": "paymentView",
+      "description": "getbyid",
+      "type": "object",
+
+      "properties": {
+        "orderID": {
+          "description": "Identifier for orders",
+          "type": "number"
+        },
+        "userID": {
+          "description": "Identifier for users",
+          "type": "number"
+        },
+        "cost": {
+          "description": "payment cost",
+          "type": "number"
+        },
+        "paymentStatus": {
+          "description": "status of payment",
+          "type": "string"
+        },
+        "paymentDate": {
+          "description": "date of payment",
+          "type": "string"
+        }
+      }
+    },
+
+    "paymentList": {
+      "title": "Payment List",
+      "description": "List of all results",
+      "type": "array",
+      "items": {"$ref": "#/definitions/paymentView"}
+    },
+
+    "paymentCreated": {
+      "title": "PaymentCreated",
+      "description": "successfully created",
+      "type": "object",
+      "properties": {
+        "ID": {
+          "description": "The ID thats been created",
+          "type": "integer"
+        }
+      }
+    },
+
+    "paymentUpdated": {
+      "title": "PaymentUpdated",
+      "description": "successfully updated",
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "Confirm Updated",
+          "type": "string"
+        }
+      }
+    },
+
+    "paymentDeleted": {
+      "title": "PaymentDeleted",
+      "description": "successfully deleted",
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "Confirm Deletion",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

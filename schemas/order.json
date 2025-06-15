@@ -1,0 +1,162 @@
+{ 
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "order": {
+      "title": "order",
+      "description": "Create Order",
+      "type": "object",
+
+      "properties": {
+        "productID": {
+          "description": "Identifier for payments",
+          "type": "number"
+        },
+        "userID": {
+          "description": "Identifier for users",
+          "type": "number"
+        },
+        "paymentID": {
+          "description": "payment identifier",
+          "type": "number"
+        },
+        "orderStatus": {
+          "description": "status of order",
+          "type": "string"
+        },
+        "orderDate": {
+          "description": "date of order",
+          "type": "string"
+        },
+        "postcode": {
+          "description": "address of user",
+          "type": "string"
+        },
+        "quantity": {
+          "description": "amount purchased",
+          "type": "number"
+        }
+      },
+      "required": ["productID", "userID", "paymentID", "orderStatus", "orderDate", "postcode", "quantity"],
+      "additionalProperties": false
+    },
+
+    "orderUpdate": {
+      "title": "orderUpdate",
+      "description": "Update Order",
+      "type": "object",
+
+      "properties": {
+        "productID": {
+          "description": "Identifier for payments",
+          "type": "number"
+        },
+        "userID": {
+          "description": "Identifier for users",
+          "type": "number"
+        },
+        "paymentID": {
+          "description": "payment identifier",
+          "type": "number"
+        },
+        "orderStatus": {
+          "description": "status of order",
+          "type": "string"
+        },
+        "orderDate": {
+          "description": "date of order",
+          "type": "string"
+        },
+        "postcode": {
+          "description": "address of user",
+          "type": "string"
+        },
+        "quantity": {
+          "description": "amount purchased",
+          "type": "number"
+        }
+      },
+      "required": ["orderStatus"],
+      "additionalProperties": false
+    },
+
+    "orderView": {
+      "title": "orderView",
+      "description": "getbyid",
+      "type": "object",
+
+      "properties": {
+        "productID": {
+          "description": "Identifier for payments",
+          "type": "number"
+        },
+        "userID": {
+          "description": "Identifier for users",
+          "type": "number"
+        },
+        "paymentID": {
+          "description": "payment identifier",
+          "type": "number"
+        },
+        "orderStatus": {
+          "description": "status of order",
+          "type": "string"
+        },
+        "orderDate": {
+          "description": "date of order",
+          "type": "string"
+        },
+        "postcode": {
+          "description": "address of user",
+          "type": "string"
+        },
+        "quantity": {
+          "description": "amount purchased",
+          "type": "number"
+        }
+      }
+    },
+
+    "orderList": {
+      "title": "Order List",
+      "description": "List of all results",
+      "type": "array",
+      "items": {"$ref": "#/definitions/orderView"}
+    },
+
+    "orderCreated": {
+      "title": "OrderCreated",
+      "description": "successfully created",
+      "type": "object",
+      "properties": {
+        "ID": {
+          "description": "The ID thats been created",
+          "type": "integer"
+        }
+      }
+    },
+
+    "orderUpdated": {
+      "title": "OrderUpdated",
+      "description": "successfully updated",
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "Confirm Updated",
+          "type": "string"
+        }
+      }
+    },
+
+    "orderDeleted": {
+      "title": "OrderDeleted",
+      "description": "successfully deleted",
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "Confirm Deletion",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Module: musicShop/src/components/PaymentsPage</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Module: musicShop/src/components/PaymentsPage</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        
+            
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">A module for the web page to execute CRUD operations on the users table</div>
+        
+
+        
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Liam Trodden</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="musicshop_src_components_PaymentsPage.js.html">musicshop/src/components/PaymentsPage.js</a>, <a href="musicshop_src_components_PaymentsPage.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li>../App.js</li>
+        
+            <li>../../../dbCode</li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~createPayments"><span class="type-signature">(inner) </span>createPayments<span class="signature">()</span><span class="type-signature"> &rarr; {void}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    async function to make the POST request to create a Payment
+
+try and fill body with the input variables then stringify the body,
+then create the response using the jwt token and a json format
+if response failed alert and clear inputs
+else alert successfully created the payment and clear inputs and refresh all the payments
+catch error creating the payment
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="musicshop_src_components_PaymentsPage.js.html">musicshop/src/components/PaymentsPage.js</a>, <a href="musicshop_src_components_PaymentsPage.js.html#line213">line 213</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~getAllPayments"><span class="type-signature">(inner) </span>getAllPayments<span class="signature">()</span><span class="type-signature"> &rarr; {void}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    function to make the request to GET all payments
+
+try and make the request using the jwt token as as the Authorization in json format
+if response not ok, alert payments not found and clear input
+else, show the data retrieved in the response and clear input
+catch an error getting payments
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="musicshop_src_components_PaymentsPage.js.html">musicshop/src/components/PaymentsPage.js</a>, <a href="musicshop_src_components_PaymentsPage.js.html#line135">line 135</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~getByIdPayments"><span class="type-signature">(inner) </span>getByIdPayments<span class="signature">()</span><span class="type-signature"> &rarr; {void}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    function to make the request to GET a payment
+
+try and make the request using the jwt token as as the Authorization in json format
+if response not ok, alert order not found and clear input
+else, show the data retrieved in the response and clear input
+catch an error getting payment
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="musicshop_src_components_PaymentsPage.js.html">musicshop/src/components/PaymentsPage.js</a>, <a href="musicshop_src_components_PaymentsPage.js.html#line173">line 173</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~PaymentsPage"><span class="type-signature">(inner) </span>PaymentsPage<span class="signature">()</span><span class="type-signature"> &rarr; {JSX.element}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    function to perform CRUD operations on the payments
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="musicshop_src_components_PaymentsPage.js.html">musicshop/src/components/PaymentsPage.js</a>, <a href="musicshop_src_components_PaymentsPage.js.html#line22">line 22</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    - The UI with inputs for the body of requests and ID's and a button for each CRUD operation to perform the action
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">JSX.element</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~submitCreate"><span class="type-signature">(inner) </span>submitCreate<span class="signature">()</span><span class="type-signature"> &rarr; {void}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    connects button for creating a payment to the function that performs the operation
+
+If the required inputs are empty, alert they must be filled and clear inputs
+else, call the createPayments function
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="musicshop_src_components_PaymentsPage.js.html">musicshop/src/components/PaymentsPage.js</a>, <a href="musicshop_src_components_PaymentsPage.js.html#line85">line 85</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~submitGetById"><span class="type-signature">(inner) </span>submitGetById<span class="signature">()</span><span class="type-signature"> &rarr; {void}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    connect button to get by ID to the function to perform the get by ID
+
+If input is empty then alert that inputs empty
+else, call getByIdPayments and clear input
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="musicshop_src_components_PaymentsPage.js.html">musicshop/src/components/PaymentsPage.js</a>, <a href="musicshop_src_components_PaymentsPage.js.html#line61">line 61</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~submitUpdate"><span class="type-signature">(inner) </span>submitUpdate<span class="signature">()</span><span class="type-signature"> &rarr; {void}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Connects the update button the the function that performs the Update
+
+if the paymentID isnt input alert the ID is required and clear inputs
+else, call the updatePayments function
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="musicshop_src_components_PaymentsPage.js.html">musicshop/src/components/PaymentsPage.js</a>, <a href="musicshop_src_components_PaymentsPage.js.html#line112">line 112</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~updatePayments"><span class="type-signature">(inner) </span>updatePayments<span class="signature">()</span><span class="type-signature"> &rarr; {void}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    async function to make the PUT request to update an Payment
+
+try and fill body with the input variables then stringify the body,
+then create the response using the jwt token and a json format
+if response failed alert and clear inputs
+else alert successfully updated the payment and clear inputs and refresh all the payments
+catch error updating the payment
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="musicshop_src_components_PaymentsPage.js.html">musicshop/src/components/PaymentsPage.js</a>, <a href="musicshop_src_components_PaymentsPage.js.html#line275">line 275</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~useEffect"><span class="type-signature">(inner) </span>useEffect<span class="signature">()</span><span class="type-signature"> &rarr; {void}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    When the web page is opened, check if token exists to perform operations and alert if it doesn't exist.
+
+if token exists then call the getAllPayments function
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="musicshop_src_components_PaymentsPage.js.html">musicshop/src/components/PaymentsPage.js</a>, <a href="musicshop_src_components_PaymentsPage.js.html#line41">line 41</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-controller_products.html">controller/products</a></li><li><a href="module-controllers_auth.html">controllers/auth</a></li><li><a href="module-controllers_jwt.html">controllers/jwt</a></li><li><a href="module-controllers_validation.html">controllers/validation</a></li><li><a href="module-Dashboard.html">Dashboard</a></li><li><a href="module-helpers_database.html">helpers/database</a></li><li><a href="module-Login.html">Login</a></li><li><a href="module-models_orders.html">models/orders</a></li><li><a href="module-models_payments.html">models/payments</a></li><li><a href="module-models_products.html">models/products</a></li><li><a href="module-models_users.html">models/users</a></li><li><a href="module-musicShop_src_app.html">musicShop/src/app</a></li><li><a href="module-musicShop_src_components_Dashboard.html">musicShop/src/components/Dashboard</a></li><li><a href="module-musicShop_src_components_Login.html">musicShop/src/components/Login</a></li><li><a href="module-musicShop_src_components_OrdersPage.html">musicShop/src/components/OrdersPage</a></li><li><a href="module-musicShop_src_components_PaymentsPage.html">musicShop/src/components/PaymentsPage</a></li><li><a href="module-musicShop_src_components_ProductList.html">musicShop/src/components/ProductList</a></li><li><a href="module-musicShop_src_components_UserPage.html">musicShop/src/components/UserPage</a></li><li><a href="module-permissions_orders.html">permissions/orders</a></li><li><a href="module-permissions_payments.html">permissions/payments</a></li><li><a href="module-permissions_products.html">permissions/products</a></li><li><a href="module-permissions_users.html">permissions/users</a></li><li><a href="module-routes_orders.html">routes/orders</a></li><li><a href="module-routes_payments.html">routes/payments</a></li><li><a href="module-routes_products.html">routes/products</a></li><li><a href="module-routes_users.html">routes/users</a></li><li><a href="module-strategies_basic.html">strategies/basic</a></li><li><a href="module-strategies_jwt.html">strategies/jwt</a></li><li><a href="routes_login.module_js.html">js</a></li></ul><h3>Global</h3><ul><li><a href="global.html#port">port</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Tue Apr 01 2025 21:28:20 GMT+0000 (GMT)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

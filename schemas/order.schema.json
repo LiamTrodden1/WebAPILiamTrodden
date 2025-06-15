@@ -1,0 +1,43 @@
+{ 
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "order": {
+      "title": "order",
+      "description": "Create Order",
+      "type": "object",
+
+      "properties": {
+        "productID": {
+          "description": "Identifier for payments",
+          "type": "number"
+        },
+        "userID": {
+          "description": "Identifier for users",
+          "type": "number"
+        },
+        "paymentID": {
+          "description": "payment identifier",
+          "type": "number"
+        },
+        "orderStatus": {
+          "description": "status of order",
+          "type": "string"
+        },
+        "orderDate": {
+          "description": "date of order",
+          "type": "string"
+        },
+        "postcode": {
+          "description": "address of user",
+          "type": "string"
+        },
+        "quantity": {
+          "description": "amount purchased",
+          "type": "number"
+        }
+      },
+      "required": ["productID", "userID", "paymentID", "orderStatus", "orderDate", "postcode", "quantity"],
+      "additionalProperties": false
+    }
+  }
+}

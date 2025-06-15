@@ -1,0 +1,30 @@
+{ 
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Payment",
+  "description": "A Payment for products",
+  "type": "object",
+
+  "properties": {
+    "orderID": {
+      "description": "Identifier for orders",
+      "type": "number"
+    },
+    "userID": {
+      "description": "Identifier for users",
+      "type": "number"
+    },
+    "cost": {
+      "description": "payment cost",
+      "type": "number"
+    },
+    "paymentStatus": {
+      "description": "status of payment",
+      "type": "string"
+    },
+    "paymentDate": {
+      "description": "date of payment",
+      "type": "string"
+    }
+  },
+  "required": ["orderID", "userID", "cost", "paymentDate"]
+}
